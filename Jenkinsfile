@@ -22,8 +22,8 @@ pipeline {
     }
         stage('Checkout') {
             steps {
-                bat 'mvn --version'
-                bat 'docker version'
+                cmd_exec('mvn --version')
+                cmd_exec('docker version')
                 echo "Checkout"
                 echo "PATH: $PATH"
                 echo "BUILD NUMBER: $env.BUILD_NUMBER"
@@ -35,18 +35,18 @@ pipeline {
         }
         stage('Compile') {
             steps {
-                bat 'mvn clean compile'
+                cmd_exec('mvn clean compile')
 
             }
         }
         stage('Unit Test') {
             steps {
-                bat 'mvn test'
+                cmd_exec('mvn test')
             }
         }
         stage('Integration Test') {
             steps {
-                bat 'mvn failsafe:integration-test failsafe:verify'
+                cmd_exec('mvn failsafe:integration-test failsafe:verify')
             }
         }
     }
